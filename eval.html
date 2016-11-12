@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html ng-app="exampleApp">
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css' />
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.min.css' />
+</head>
+
+
+<body ng-controller="defaultCtrl" class="well container">
+    <div>
+        <span ng-show="!show" ng-bind="data.name" on-focus="show=true" ng-init="show=false"></span>
+        <input ng-show="!!show" type="text" ng-model="data.name" ng-blur="show=!show" />
+    </div>
+    <button ng-click="changeData()" class="btn btn-primary">Submit</button>
+    <script>
+        var app = angular.module("exampleApp", []);
+        app.controller('defaultCtrl', function ($scope) {
+            $scope.data = {
+                name: "luyuan"
+            };
+            
+            $scope.changeData = function(){
+                
+            }
+        })
+        app.directive('onFocus', function () {
+            return {
+                link: function (scope, elem, attrs) {
+                    elem.bind('click', function () {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.onFocus);
+                        })
+                        console.log('hello');
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
